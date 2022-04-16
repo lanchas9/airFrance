@@ -1,0 +1,165 @@
+body {
+    background-color: white;
+  }
+
+.logoTitulo{
+    align-items: center;
+    margin: 5%;
+    margin-top: 10%;
+}
+
+.logoPortada{
+    align-items: center;
+    margin: 7%;
+    margin-top: 5%;
+}
+
+.texto{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    color: #002156 ;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 5%;
+}
+
+.boton{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    border-radius: 8px; 
+    background-color: #ed1c24  ; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 24px;
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 5%;
+}
+
+.divisionRojaArriba{
+    color: #ed1c24;
+    background-color: #ed1c24;
+    height: 6px;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 0px;
+    margin-top: 5%;
+    margin-bottom: 0px;
+}
+
+.divisionRojaAbajo{
+    color: #ed1c24;
+    background-color: #ed1c24;
+    height: 6px;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 10%;
+    margin-top: 0px;
+}
+
+.textoTitulo{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+    color: #002156 ;
+    text-align: center;
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.textoTitulo2{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+    color: #002156 ;
+    text-align: center;
+    width: 50%;
+    margin-left: 35%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.inputDatos{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #002156 ;
+    text-align: center;
+    width: 50%;
+    height: 30px;
+    margin-left: 25%;
+    background-color: whitesmoke;
+}
+
+.mensajeError{
+    color: #ed1c24;
+    height: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+}
+
+.respuestas{
+    color: white;
+    height: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+    background-color: #ed1c24;
+    margin-top: 15%;
+    width: 50%;
+    height: 50px;
+    margin-left: 25%;
+    border-color: #002156;
+    border-style: solid;
+    border-width: 5px;
+    line-height: 1.5;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.respuestaSelecionada{
+    color: white;
+    height: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 15%;
+    width: 50%;
+    height: 50px;
+    margin-left: 25%;
+    border-style: solid;
+    border-width: 5px;
+    line-height: 1.5;
+    display: inline-block;
+    vertical-align: middle;
+    background-color: #002156; 
+    border-color: #ed1c24;
+}
+
+.oculto{
+    display: none;
+}
+
+.mostrar{
+    display: inline;
+}
+
+.centrado{
+    text-align: center;
+    align-content: center;
+}
+
+.video{
+    width: 80%;
+    margin-left: 10%;
+}

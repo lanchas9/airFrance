@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>AirFrance México - Paris 70 aniversario</title>
+</head>
+<body onload="cargaResultados()">
+    <img src="assets/images/Logo.png" alt="" srcset="" class="logoTitulo">
+    <hr class="divisionRojaArriba">
+    <span class="textoTitulo">Resultado</span>
+    <hr class="divisionRojaAbajo">
+    <br>
+    <p class="texto">Tuviste: </p>
+    <p class="mensajeError" id="numeroAciertos">1 / 3 </p>
+    <p class="texto">aciertos </p>
+    <p class="texto oculto centrado" id="textoGanador">¡Felicidades! Revista tu correo para tener un código QR de participación</p>
+    <p class="texto oculto centrado" id="textoPerdedor">¡Gracias por participar! <br> Te invitamos a seguir volando <br> con nostros</p>
+    <br><br>
+    <button class="boton" onclick="window.location.href = 'https://wwws.airfrance.com.mx/';">Salir</button>
+    <script type="text/javascript">
+            async function cargaResultados(){
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                let idUsuario = urlParams.get('idUsuario') 
+                let numAciertos = urlParams.get('numAciertos') 
+
+                if (numAciertos == "3"){
+                    document.getElementById("textoGanador").className = "texto mostrar centrado"
+                    
+                    const data = {
+                        "idUsuario" : idUsuario,
+                    }
+                    const dataJson = JSON.stringify(data)
+
+                    const settings = {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: 
+                        dataJson
+                    };
+                    
+                    try {
+                    const fetchResponse = await fetch(`https://mosaico.app:4000/airFrance/guardaGanador`, settings);
+                    const data = await fetchResponse.json();
+                    resul = data.statusCode
+                    if(resul == 200){
+                        console.log("Email enviado correctamente")
+                    }else{
+                        console.log("Error: " + data.message)
+                    }
+                } catch (e) {
+                    console.log("Error:" + e)
+                }
+
+                }else{
+                    document.getElementById("textoPerdedor").className = "texto mostrar centrado"
+                }
+            }
+    </script>
+</body>
+</html>
