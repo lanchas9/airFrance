@@ -54,8 +54,8 @@
             console.log("Respuestas : " + respuestas);
             let contador = 0;
             
-            preguntas.forEach(element => {
-                if(element.respuestaCorrecta == respuestas[element.idPregunta]){
+            preguntas.forEach((element,index) => {
+                if(element.respuestaCorrecta == respuestas[index]){
                 contador +=1
                 }
             });
