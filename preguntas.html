@@ -13,28 +13,34 @@
     <!-- <div class="container"></div> -->
     <div id="app" class="app"></div>
     <br>
-    <p class="textoTitulo" id="tituloPregunta">Título pregunta</p>
+    <p class="textoTitulo3" id="tituloPregunta">Título pregunta</p>
     <p class="respuestas" id="respuestas01" onclick="asignaRespuesta(1)">Opción respuesta 1</p>
     <p class="respuestas" id="respuestas02" onclick="asignaRespuesta(2)">Opción respuesta 2</p>
     <p class="respuestas" id="respuestas03" onclick="asignaRespuesta(3)">Opción respuesta 3</p>
-    <button class="boton" onclick="siguientePregunta()">Siguiente</button>
+    <button class="boton" onclick="paraCronometro()">Siguiente</button>
     <script type="text/javascript">
         let preguntaActual = -1;
         let preguntas;
-        let respuestas = [0,0,0];
+        let respuestas = [];
         let idUsuario = 0;
+        let numPreguntas = 0;
+
+        function paraCronometro(){
+            timeLeft=0;
+            onTimesUp() ; //en cronometro2.js
+        }
 
         function asignaRespuesta(resp){
             respuestas[preguntaActual] = resp
             document.getElementById("respuestas01").className = "respuestas"
             document.getElementById("respuestas02").className = "respuestas"
             document.getElementById("respuestas03").className = "respuestas"
-            document.getElementById("respuestas0"+resp).className = "respuestaSelecionada"
+            document.getElementById("respuestas0"+resp).className = "respuestas respuestaSelecionada"
         }
 
         function siguientePregunta(){
             preguntaActual +=  1
-            if (preguntaActual < 3){
+            if (preguntaActual < numPreguntas){
                 document.getElementById("respuestas01").className = "respuestas"
                 document.getElementById("respuestas02").className = "respuestas"
                 document.getElementById("respuestas03").className = "respuestas"
@@ -48,17 +54,12 @@
             console.log("Respuestas : " + respuestas);
             let contador = 0;
             
-            if(preguntas[0].respuestaCorrecta == respuestas[0]){
+            preguntas.forEach(element => {
+                if(element.respuestaCorrecta == respuestas[element.idPregunta]){
                 contador +=1
-            }
-            if(preguntas[1].respuestaCorrecta == respuestas[1]){
-                contador +=1
-            }
-            if(preguntas[2].respuestaCorrecta == respuestas[2]){
-                contador +=1
-            }
-            window.location.href = `resultado.html?idUsuario=${idUsuario}&numAciertos=${contador}`;
-           
+                }
+            });
+            window.location.href = `resultado.html?idUsuario=${idUsuario}&numAciertos=${contador}&numPreguntas=${numPreguntas}`;  
         }
 
         async function cargaPreguntas(){
@@ -79,6 +80,9 @@
                     const data = await fetchResponse.json();
                     preguntas = data.preguntasData
                     console.log("# Preguntas: " + preguntas.length)
+                    numPreguntas =  preguntas.length
+                    respuestas = Array(numPreguntas).fill(0)
+
                     // console.log(JSON.stringify(preguntas))
                    console.log("Preguntas: " + preguntas[0].idPregunta + ", "  + preguntas[1].idPregunta + ", "  + preguntas[2].idPregunta)
                     siguientePregunta()

@@ -1,8 +1,8 @@
 // Credit: Mateusz Rybczonec
 
 const FULL_DASH_ARRAY = 283;
-const WARNING_THRESHOLD = 10;
-const ALERT_THRESHOLD = 5;
+const WARNING_THRESHOLD = 6;
+const ALERT_THRESHOLD = 3;
 
 const COLOR_CODES = {
   info: {
@@ -18,7 +18,7 @@ const COLOR_CODES = {
   }
 };
 
-const TIME_LIMIT = 20;
+const TIME_LIMIT = 10;
 let timePassed = 0;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;
@@ -49,9 +49,35 @@ document.getElementById("app").innerHTML = `
 `;
 
 // startTimer();
+function setupNuevoCronometro(){
+      document.getElementById("app").innerHTML = `
+    <div class="base-timer">
+      <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g class="base-timer__circle">
+          <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+          <path
+            id="base-timer-path-remaining"
+            stroke-dasharray="283"
+            class="base-timer__path-remaining ${remainingPathColor}"
+            d="
+              M 50, 50
+              m -45, 0
+              a 45,45 0 1,0 90,0
+              a 45,45 0 1,0 -90,0
+            "
+          ></path>
+        </g>
+      </svg>
+      <span id="base-timer-label" class="base-timer__label">${formatTime(
+        timeLeft
+      )}</span>
+    </div>
+    `;
+}
 
 function onTimesUp() {
   clearInterval(timerInterval);
+  setupNuevoCronometro();
     timePassed = 0;
     timeLeft = TIME_LIMIT;
     timerInterval = null;
