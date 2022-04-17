@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>AirFrance México - Paris 70 aniversario</title>
+</head>
+<body onload="actualiza()">
+    <img src="assets/images/Logo.png" alt="" srcset="" class="logoTitulo">
+    <hr class="divisionRojaArriba">
+    <span class="textoTitulo">Usuarios Totales</span>
+    <hr class="divisionRojaAbajo">
+    <br>
+    <p class="texto">Usuarios Registrados : </p><p class="mensajeError grande" id="numUsuariosTotales"> </p>
+    <p class="texto">Usuarios con 3 Aciertos: </p><p class="mensajeError grande" id="numUsuariosGanadores"> </p>
+    <br><br>
+    <button class="boton" onclick="actualiza()">Actualizar</button>
+    <script type='text/javascript'>
+
+         async function actualiza(){
+            
+            const settings = {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                 };
+                try {
+                    const fetchResponse = await fetch(`https://mosaico.app:4000/airFrance/dameTotalDeUsuarios`, settings);
+                    const data = await fetchResponse.json();
+                    if (data.statusCode==200){
+                        let numUsuariosTotales  = data.numUsuariosTotales
+                        let numUsuariosGanadores = data.numUsuariosGanadores
+
+                        document.getElementById("numUsuariosTotales").innerHTML = numUsuariosTotales 
+                        document.getElementById("numUsuariosGanadores").innerHTML = numUsuariosGanadores
+
+                    }
+                    
+                    
+                } catch (e) {
+                    console.log("Error" + e)
+                }
+        }
+
+    </script>
+</body>
+</html>
