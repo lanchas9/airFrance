@@ -10,7 +10,9 @@
     <title>AirFrance México - Paris 70 aniversario</title>
 </head>
 <body onload="cargaPreguntas()">
-    <img src="assets/images/Logo.png" alt="" srcset="" class="logoTitulo">
+    <div class="centrado">
+        <img src="assets/images/Logo.png" alt="" srcset="" class="logoTitulo">
+    </div>
     <!-- <div class="container"></div> -->
     <div id="app" class="app"></div>
     <br>
@@ -18,7 +20,9 @@
     <p class="respuestas" id="respuestas01" onclick="asignaRespuesta(1)">Opción respuesta 1</p>
     <p class="respuestas" id="respuestas02" onclick="asignaRespuesta(2)">Opción respuesta 2</p>
     <p class="respuestas" id="respuestas03" onclick="asignaRespuesta(3)">Opción respuesta 3</p>
-    <button class="boton" onclick="paraCronometro()">Siguiente</button>
+    <div class="centrado">
+        <button class="boton" onclick="paraCronometro()">Siguiente</button>
+    </div>
     <script type="text/javascript">
         let preguntaActual = -1;
         let preguntas;
@@ -60,7 +64,14 @@
                 contador +=1
                 }
             });
+            guardaCookie(true, contador, numPreguntas)
             window.location.href = `resultado.html?idUsuario=${idUsuario}&numAciertos=${contador}&numPreguntas=${numPreguntas}`;  
+        }
+
+        function guardaCookie(yaContesto, numAciertos, numPreguntas){
+            setCookie("yaContesto", yaContesto, 10);
+            setCookie("numAciertos", numAciertos, 10);
+            setCookie("numPreguntas", numPreguntas, 10);
         }
 
         async function cargaPreguntas(){
@@ -68,6 +79,15 @@
             const urlParams = new URLSearchParams(queryString);
             idUsuario = urlParams.get('idUsuario') 
             console.log({idUsuario})
+
+            let yaContesto = getCookie("yaContesto")
+            let numAciertosCookie = getCookie("numAciertos")
+            let numPreguntasCookie = getCookie("numPreguntas")
+
+            if (yaContesto){
+                setCookie("botonRegresar", true, 10);
+                window.location.href = `resultado.html?idUsuario=${idUsuario}&numAciertos=${numAciertosCookie}&numPreguntas=${numPreguntasCookie}`;  
+            }
             
             const settings = {
                 method: 'GET',
@@ -103,5 +123,6 @@
     
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"type="text/javascript"></script> -->
         <script src="assets/js/cronometro2.js"type="text/javascript"></script>
+        <script src="assets/js/cookie.js"type="text/javascript"></script>
 </body>
 </html>

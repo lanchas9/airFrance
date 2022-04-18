@@ -9,19 +9,24 @@
     <title>AirFrance México - Paris 70 aniversario</title>
 </head>
 <body>
-    <img src="assets/images/Logo.png" alt="" srcset="" class="logoTitulo">
+    <div class="centrado">
+        <img src="assets/images/Logo.png" alt="" srcset="" class="logoTitulo">
+    </div>
     <hr class="divisionRojaArriba">
-    <span class="textoTitulo2">Registro</span>
-    <hr class="divisionRojaAbajo">
+    <div class="divCentrado">
+        <span class="textoTitulo">Registro</span>
+    </div>    <hr class="divisionRojaAbajo">
     <br>
     <p class="texto">Nombre Completo</p>
     <input type="text" class="inputDatos" id="nombreUsuario" >
     <p class="texto">Correo (con acceso en el teléfono)</p>
-    <input type="text" class="inputDatos" id="correoUsuario" >
+    <input type="email" class="inputDatos" id="correoUsuario" >
     <p class="texto">Celular (10 dígitos)</p>
-    <input type="text" class="inputDatos" id="celularUsuario" >
+    <input type="number" class="inputDatos" id="celularUsuario" >
     <br><br>
-    <button class="boton" onclick="validaDatos()">Ver video</button>
+    <div class="centrado">
+        <button class="boton" onclick="validaDatos()">Ver video</button>
+    </div>
     <p class="mensajeError" id="mensajeError"></p>
     <script type="text/javascript">
         async function validaDatos() {
@@ -48,26 +53,35 @@
                 valido = false
                 mensaje = "Nombre demasiado corto"
             }
+
+            if (getCookie("yaContesto")) {
+                valido = false
+                mensaje = "Este dispositivo ya fué utlizado para participar"
+            }
             
             if(valido){
-                
                 let resul = await guardaDatos(nombreUsuario, correoUsuario,celularUsuario)
                 if (resul.statusCode ==200){
+                    guardaCookie("idUsuario",resul.idUsuario);
                     window.location.href = `video.html?idUsuario=${resul.idUsuario}`;
                 }else{
                     document.getElementById("mensajeError").innerHTML = resul.message
                 }
-                
             }else{
                 document.getElementById("mensajeError").innerHTML = mensaje
             }
+        }
+
+        function guardaCookie(name, value){
+            setCookie(name, value, 10);
         }
         
         async function guardaDatos(nombreUsuario, correoUsuario,celularUsuario){
             let resul = {
                 error : true,
-                mensaje: "",
-                idUsuario: 0
+                message: "",
+                idUsuario: 0,
+                statusCode: 0
             }
             const data = {
                     "nombreUsuario" : nombreUsuario,
@@ -131,5 +145,6 @@
                     !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
         }
     </script>
+    <script src="assets/js/cookie.js"type="text/javascript"></script>
 </body>
 </html>
