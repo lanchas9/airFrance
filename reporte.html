@@ -9,15 +9,21 @@
     <title>AirFrance México - Paris 70 aniversario</title>
 </head>
 <body onload="actualiza()">
-    <img src="assets/images/Logo.png" alt="" srcset="" class="logoTitulo">
+    <div class="centrado">
+        <img src="assets/images/Logo.png" alt="" srcset="" class="logoTitulo">
+    </div>
     <hr class="divisionRojaArriba">
-    <span class="textoTitulo">Usuarios Totales</span>
+    <div class="centrado">
+        <span class="textoTitulo">Usuarios Totales</span>
+    </div>
     <hr class="divisionRojaAbajo">
     <br>
     <p class="texto">Usuarios Registrados : </p><p class="mensajeError grande" id="numUsuariosTotales"> </p>
     <p class="texto">Usuarios con 3 Aciertos: </p><p class="mensajeError grande" id="numUsuariosGanadores"> </p>
     <br><br>
-    <button class="boton" onclick="actualiza()">Actualizar</button>
+    <div class="centrado">
+        <button class="boton" onclick="actualiza()">Actualizar</button>
+    </div>
     <script type='text/javascript'>
 
          async function actualiza(){
