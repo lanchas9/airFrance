@@ -201,6 +201,14 @@ body {
     margin-left: 12%;
 }
 
+.video2{
+    padding-top: 10px;
+    padding-bottom: 10px;   
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
 .grande{
     font-weight: 800;
     font-size: 32px;
@@ -254,6 +262,12 @@ body {
         display: block;
         margin: 0 auto;
         margin-bottom: 1%;
+    }
+
+    .video2{
+        display: flex;
+        justify-content: center;
+        margin: auto;
     }
     .respuestas{
         margin-top: 2%;
