@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="icon" type="image/jpg" href="assets/images/70aniversario.jpg" />
+    <script src="assets/js/jquery.min.js"  type='text/javascript'></script>
+    <script src="assets/js/qrcode.js"  type='text/javascript'></script>
     <title>AirFrance México - Paris 70 aniversario</title>
 </head>
 <body onload="actualiza()">
@@ -20,7 +22,9 @@
     <br>
     <p class="texto">Usuarios Registrados : </p><p class="mensajeError grande" id="numUsuariosTotales"> </p>
     <p class="texto">Usuarios con 3 Aciertos: </p><p class="mensajeError grande" id="numUsuariosGanadores"> </p>
-    <br><br>
+    <div">
+        <div id="qrcode1"  class="qrcode2"></div>
+    </div>
     <div class="centrado">
         <button class="boton" onclick="actualiza()">Actualizar</button>
     </div>
@@ -44,7 +48,12 @@
 
                         document.getElementById("numUsuariosTotales").innerHTML = numUsuariosTotales 
                         document.getElementById("numUsuariosGanadores").innerHTML = numUsuariosGanadores
-
+                        
+                        let qr = document.getElementById('qrcode1')
+                        qr.innerHTML= ''
+                        let newLink = 'AirFrance_YH_MaxQR_'+numUsuariosGanadores
+                        let baseURL = newLink
+                        new QRCode(document.getElementById('qrcode1'), baseURL);
                     }
                     
                     
