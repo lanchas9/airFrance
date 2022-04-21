@@ -63,7 +63,7 @@
                 let resul = await guardaDatos(nombreUsuario, correoUsuario,celularUsuario)
                 if (resul.statusCode ==200){
                     guardaCookie("idUsuario",resul.idUsuario);
-                    window.location.href = `video.html?idUsuario=${resul.idUsuario}`;
+                    window.location.href = `video2.html?idUsuario=${resul.idUsuario}`;
                 }else{
                     document.getElementById("mensajeError").innerHTML = resul.message
                 }
