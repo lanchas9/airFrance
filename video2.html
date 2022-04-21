@@ -35,10 +35,11 @@
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             idUsuario = urlParams.get('idUsuario') 
-            document.getElementById('demo-player').addEventListener('ended',myHandler,false);
+            
             var cld = cloudinary.videoPlayer('demo-player',{ cloud_name: 'video1080_zhyxt9' });
             cld.source('https://res.cloudinary.com/yellowhat/video/upload/v1650483186/video/video1080_zhyxt9.mp4');
             let videoDiv = document.getElementById('demo-player')
+            videoDiv.addEventListener('ended',myHandler,false);
             let ancho = window.innerWidth
             let alto = window.innerHeight
 
@@ -47,6 +48,12 @@
             let leftMargin = ancho/2 - newAncho/2
             videoDiv.style =  `width:${newAncho}px; margin-left:${leftMargin}px; height:${newAlto}px;  margin-bottom: 1%;`
             //videoDiv.style =  `margin-left:${leftMargin}px; margin-bottom: 1%;`
+            setTimeout (myHandler,10000)
+        }
+
+        function agregaEvento(){
+            // let videoDiv = document.getElementById('demo-player')
+            // videoDiv.addEventListener('ended',myHandler,false);
         }
 
         function myHandler(){
