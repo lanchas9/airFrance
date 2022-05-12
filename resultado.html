@@ -118,22 +118,22 @@
             async function entregaPremios(){
                 switch(true){
                         case (numAciertos >=6):
-                            await sendCharacterNumber('6')
+                            await sendCharacterNumber("6")
                             console.log("Enviamos 6")
                         case (numAciertos >=5):
-                            await sendCharacterNumber('5')
+                            await sendCharacterNumber("5")
                             console.log("Enviamos 5")
                         case (numAciertos >=4):
-                            await sendCharacterNumber('4')
+                            await sendCharacterNumber("4")
                             console.log("Enviamos 4")
                         case (numAciertos >=3):
-                            await sendCharacterNumber('3')
+                            await sendCharacterNumber("3")
                             console.log("Enviamos 3")
                         case (numAciertos >=2):
-                            await sendCharacterNumber('2')
+                            await sendCharacterNumber("2")
                             console.log("Enviamos 2")
                         case (numAciertos >=1):
-                            await sendCharacterNumber('1')
+                            await sendCharacterNumber("1")
                             console.log("Enviamos 1")
                             break;
                     }
@@ -190,8 +190,8 @@
             appendToTerminal(value);
         }
     }
-    function appendToTerminal(str){
-        console.log(str)
+    function appendToTerminal(value){
+        console.log(value)
     }
     </script>
 </body>
