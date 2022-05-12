@@ -115,29 +115,29 @@
                 }
             }
 
-            async function entregaPremios(){
-                switch(true){
-                        case (numAciertos >=6):
-                            await sendCharacterNumber("6")
-                            console.log("Enviamos 6")
-                        case (numAciertos >=5):
-                            await sendCharacterNumber("5")
-                            console.log("Enviamos 5")
-                        case (numAciertos >=4):
-                            await sendCharacterNumber("4")
-                            console.log("Enviamos 4")
-                        case (numAciertos >=3):
-                            await sendCharacterNumber("3")
-                            console.log("Enviamos 3")
-                        case (numAciertos >=2):
-                            await sendCharacterNumber("2")
-                            console.log("Enviamos 2")
-                        case (numAciertos >=1):
-                            await sendCharacterNumber("1")
-                            console.log("Enviamos 1")
-                            break;
-                    }
-            }
+            // async function entregaPremios(){
+            //     switch(true){
+            //             case (numAciertos >=6):
+            //                 await sendCharacterNumber("6")
+            //                 console.log("Enviamos 6")
+            //             case (numAciertos >=5):
+            //                 await sendCharacterNumber("5")
+            //                 console.log("Enviamos 5")
+            //             case (numAciertos >=4):
+            //                 await sendCharacterNumber("4")
+            //                 console.log("Enviamos 4")
+            //             case (numAciertos >=3):
+            //                 await sendCharacterNumber("3")
+            //                 console.log("Enviamos 3")
+            //             case (numAciertos >=2):
+            //                 await sendCharacterNumber("2")
+            //                 console.log("Enviamos 2")
+            //             case (numAciertos >=1):
+            //                 await sendCharacterNumber("1")
+            //                 console.log("Enviamos 1")
+            //                 break;
+            //         }
+            // }
     </script>
     <script src="assets/js/cookie.js"type="text/javascript"></script>
     <script>
@@ -147,8 +147,13 @@
         async function connectSerial() {
             try {
                 // Prompt user to select any serial port.
-                port = await navigator.serial.requestPort();
-                await port.open({ baudRate: '9600' });
+                const filters = [
+                    { usbVendorId: 0x2341, usbProductId: 0x0043 },
+                    { usbVendorId: 0x2341, usbProductId: 0x0001 }
+                    ];
+
+                port = await navigator.serial.requestPort({ filters });
+                await port.open({ baudRate: 9600     });
                 listenToPort();
     
                 textEncoder = new TextEncoderStream();
@@ -156,7 +161,7 @@
     
                 writer = textEncoder.writable.getWriter();
                 console.log("vamos a entrar a entrega de premios")
-                await entregaPremios()
+                await writer.write("" + numAciertos)
                 console.log("salimos de entrega de premios")
                 
             } catch(err) {
@@ -165,13 +170,13 @@
             return false;
         }
     
-        async function sendCharacterNumber(str){
-            try{
-                await writer.write(str);
-            }catch(err){
-                console.error("Mensaje: " + err)
-            }
-        }
+        // async function sendCharacterNumber(str){
+        //     try{
+        //         await writer.write(str);
+        //     }catch(err){
+        //         console.error("Mensaje: " + err)
+        //     }
+        // }
 
         async function listenToPort() {
         const textDecoder = new TextDecoderStream();
