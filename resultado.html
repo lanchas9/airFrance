@@ -157,7 +157,7 @@
         }
     
         async function sendCharacterNumber(str){
-           document.getElementById("lineToSend").value = str
+            await writer.write(str);
         }
 
 
