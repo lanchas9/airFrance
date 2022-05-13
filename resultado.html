@@ -98,9 +98,10 @@
                             };
                             
                             try {
-                            const fetchResponse = await fetch(`https://mosaico.app:4000/airFrance/guardaGanador`, settings);
-                            const data = await fetchResponse.json();
-                            resul = data.statusCode
+                            // const fetchResponse = await fetch(`https://mosaico.app:4000/airFrance/guardaGanador`, settings);
+                            // const data = await fetchResponse.json();
+                            // resul = data.statusCode
+                            let resul = 200;
                             if(resul == 200){
                                 console.log("Email enviado correctamente")
                             }else{
@@ -145,34 +146,45 @@
         const lineHistory = [];
     
         async function connectSerial() {
-            try {
-                // Prompt user to select any serial port.
-                const filters = [
-                    { usbVendorId: 0x2341, usbProductId: 0x0042 }
-                //     ,{ usbVendorId: 0x2341, usbProductId: 0x0001 }
-                    ];
 
-                port = await navigator.serial.requestPort({ filters });
-                // port = await navigator.serial.requestPort();
-                await port.open({ baudRate: 9600 });
-                const { usbProductId, usbVendorId } = port.getInfo();
-                console.log({usbProductId})
-                console.log({usbVendorId})
-                listenToPort();
-    
-                textEncoder = new TextEncoderStream();
-                writableStreamClosed = textEncoder.readable.pipeTo(port.writable);
-    
-                writer = textEncoder.writable.getWriter();
-                console.log("vamos a entrar a entrega de premios")
-                let resul = 48 + numAciertos;
-                await writer.write(resul)
-                console.log("salimos de entrega de premios")
+            if ("serial" in navigator && "forget" in SerialPort.prototype) {
+                try {
+
+                    const portsYaAutorizados = await navigator.serial.getPorts();    
+                    if (portsYaAutorizados){
+                        port = portsYaAutorizados
+                        console.log("Ya autorizado")
+                    }else{
+                        console.log("Vamos a Preguntar de nuevo")
+                        const filters = [
+                        { usbVendorId: 0x2341, usbProductId: 0x0042 }
+                        //     ,{ usbVendorId: 0x2341, usbProductId: 0x0001 }
+                        ];
+
+                        port = await navigator.serial.requestPort({ filters });
+                    }
+                    
+                    await port.open({ baudRate: 9600 });
+                    // const { usbProductId, usbVendorId } = port.getInfo();
+                    // console.log({usbProductId})
+                    // console.log({usbVendorId})
+                    listenToPort();
+        
+                    textEncoder = new TextEncoderStream();
+                    writableStreamClosed = textEncoder.readable.pipeTo(port.writable);
+        
+                    writer = textEncoder.writable.getWriter();
+                    let resul = 48 + numAciertos;
+                    console.log("vamos a envar: " + resul)
+                    await writer.write(resul)
+                    console.log("salimos de entrega de premios")
                 
-            } catch(err) {
-                alert("Serial Connection Failed: " + err);
+                } catch(err) {
+                    alert("Serial Connection Failed: " + err);
+                }
+            }else{
+                alert("API serial no soportada");
             }
-            return false;
         }
     
         // async function sendCharacterNumber(str){
@@ -187,7 +199,7 @@
         const textDecoder = new TextDecoderStream();
         const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
         const reader = textDecoder.readable.getReader();
-
+        console.log("Vamos a escuchar el serial tambien")
         // Listen to data coming from the serial device.
         while (true) {
             const { value, done } = await reader.read();
@@ -197,12 +209,10 @@
                 break;
             }
             // value is a string.
-            appendToTerminal(value);
+            console.log(value)
         }
     }
-    function appendToTerminal(value){
-        console.log(value)
-    }
+
     </script>
 </body>
 </html>
