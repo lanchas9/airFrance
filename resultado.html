@@ -147,7 +147,7 @@
     
         async function connectSerial() {
 
-            if ("serial" in navigator && "forget" in SerialPort.prototype) {
+            if ("serial" in navigator) {
                 try {
 
                     const portsYaAutorizados = await navigator.serial.getPorts();    
