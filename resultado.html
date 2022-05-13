@@ -152,7 +152,7 @@
 
                     const portsYaAutorizados = await navigator.serial.getPorts();    
                     if (portsYaAutorizados){
-                        port = portsYaAutorizados
+                        port = portsYaAutorizados[0]
                         console.log("Ya autorizado")
                     }else{
                         console.log("Vamos a Preguntar de nuevo")
